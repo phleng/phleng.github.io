@@ -1,0 +1,17 @@
+{
+  "devDependencies": {
+    "cheerio": "^1.0.0-rc.10",
+    "chordsheetjs": "^5.1.2",
+    "cssnano": "^5.0.1",
+    "esbuild": "^0.13.8",
+    "handlebars": "^4.7.7",
+    "hash-files": "^1.1.1",
+    "html-minifier": "^4.0.0",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.2.10",
+    "tailwindcss": "^2.1.1"
+  },
+  "scripts": {
+    "build": "node ./build.js"
+  }
+}

@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilites;
+@screens;
+
+html {
+  @apply h-full;
+}
+
+body {
+  @apply overflow-x-hidden lg:overflow-y-auto min-h-full lg:h-auto h-full text-lg text-gray-900;
+}
+
+.background {
+  @apply m-4 pb-8 mt-8 lg:mt-4;
+}
+
+.wrapper {
+  @apply mx-auto max-w-xl;
+}
+
+.title {
+  @apply pt-8 xl:text-3xl text-2xl mb-4 mt-12 font-bold;
+}
+
+.title a {
+  @apply no-underline;
+}
+
+.lyrics {
+  white-space: nowrap;
+}
+
+p, li {
+  @apply leading-snug;
+}
+
+ul, ol {
+  @apply m-0;
+}
+
+ul {
+  @apply list-disc;
+}
+
+ol {
+  @apply list-decimal;
+}
+
+a {
+  @apply underline;
+}
+
+.en, .nav-list.en, .m-nav .change-lang.en {
+  @apply hidden;
+}
+
+.en, .m-nav select.en {
+  @apply xl:text-base text-sm;
+}
+
+.title {
+  @apply xl:text-2xl text-xl;
+}
+
+.m-nav {
+  @apply lg:hidden text-base absolute left-0 top-0 bg-white z-10 flex justify-between w-screen;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.m-nav select {
+  @apply bg-transparent text-base border-r border-gray-300 p-2;
+}
+
+.m-nav .change-lang {
+  @apply w-16 block text-base bg-transparent p-2 border-l border-gray-300;
+}
+
+.nav-list .change-lang {
+  @apply w-full text-left px-4 py-2 border-b border-gray-300;
+}
+
+.nav-list .change-lang:hover {
+  @apply text-gray-900;
+}
+
+.book {
+  @apply w-40;
+}
+
+.chapter {
+  @apply w-16;
+}
+
+.nav-list {
+  @apply list-none hidden lg:block xl:ml-8 xl:w-96 fixed left-0 top-0 bottom-0 w-72 my-6 overflow-y-auto;
+}
+
+.nav-list.show {
+  @apply hidden lg:block;
+}
+
+.show, .m-nav .change-lang.show {
+  @apply block;
+}
+
+.hide, .m-nav .change-lang.hide {
+  @apply hidden;
+}
+
+.nav-list select {
+  @apply bg-transparent px-3 py-2 border-b border-gray-900;
+}
+
+select:focus {
+  @apply outline-none;
+}
+
+.nav-list a {
+  @apply no-underline block px-4 py-2 text-gray-700;
+}
+
+.nav-list a:hover {
+  @apply text-gray-900;
+}
+
+.active {
+  @apply font-bold text-gray-900;
+}
