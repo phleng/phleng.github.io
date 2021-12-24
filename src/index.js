@@ -5,24 +5,32 @@ for (const $nav of $navs) {
   });
 }
 
+function changeLanguage(targetLanguage) {
+  let show = 'th';
+  let hide = 'en';
+  if (targetLanguage === 'en') {
+    show = 'en';
+    hide = 'th';
+  }
+  for (const $el of document.getElementsByClassName(hide)) {
+    $el.classList.remove('show');
+    $el.classList.add('hide');
+  }
+  for (const $el of document.getElementsByClassName(show)) {
+    $el.classList.remove('hide');
+    $el.classList.add('show');
+  }
+  window.localStorage.setItem('lang', targetLanguage);
+}
+
+if (window.localStorage.getItem && window.localStorage.getItem('lang') === 'en') {
+  changeLanguage('en');
+}
+
 const $langs = document.getElementsByClassName('change-lang');
 for (const $lang of $langs) {
   $lang.addEventListener('click', e => {
-    const lang = e.target.dataset.target;
-    let show = 'th';
-    let hide = 'en';
-    if (lang === 'en') {
-      show = 'en';
-      hide = 'th';
-    }
-    for (const $el of document.getElementsByClassName(hide)) {
-      $el.classList.remove('show');
-      $el.classList.add('hide');
-    }
-    for (const $el of document.getElementsByClassName(show)) {
-      $el.classList.remove('hide');
-      $el.classList.add('show');
-    }
+    changeLanguage(e.target.dataset.target);
   });
 }
 
