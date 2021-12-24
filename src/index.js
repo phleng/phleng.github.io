@@ -64,6 +64,8 @@ function onScroll() {
 }
 onScroll();
 
+const initTimestamp = Date.now();
+
 function updateActive() {
   let activeIndex = 0;
   let i = 0;
@@ -89,7 +91,7 @@ function updateActive() {
     }
     $links[activeIndex].classList.add('active');
     const hash = $links[activeIndex].getAttribute('href');
-    if (location.hash !== hash) {
+    if (location.hash !== hash && Date.now() - initTimestamp >= 1000) {
       history.replaceState({}, '',  hash);
     }
   }
