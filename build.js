@@ -7,7 +7,7 @@ const minify = require('html-minifier').minify;
 const cheerio = require('cheerio');
 const $ = cheerio.load('<body>');
 const spawn = require('child_process').spawn;
-const ChordSheet = require('chordsheetjs').default;
+const { default: ChordSheet, Chord } = require('chordsheetjs');
 const pythonRomanize = spawn('python', ['./romanize.py']);
 pythonRomanize.stderr.setEncoding('utf8');
 pythonRomanize.stderr.on('data', data => {
@@ -27,12 +27,54 @@ async function compileTailwind() {
   return result.css;
 }
 
+function firstChord(song) {
+  for (const line of song.lines) {
+    for (const item of line.items) {
+      if (item.chords) {
+        return item.chords;
+      }
+    }
+  }
+}
+
+function chordDistance(from, to) {
+  from = Chord.parse(from);
+  let distance = 0;
+  for (; distance < 10; ++distance) {
+    if (from.toString() === to) {
+      return -distance;
+    }
+    from = from.transposeDown();
+  }
+  return 0;
+}
+
+function transposeSong(song, toChord) {
+  const chord = firstChord(song);
+  let distance = 0;
+  if (toChord.length <= 2) {
+    distance = chordDistance(chord, toChord);
+  }
+  if (distance === 0) {
+    return;
+  }
+  for (const line of song.lines) {
+    for (const item of line.items) {
+      if (item.chords) {
+        item.chords = Chord.parse(item.chords).transpose(distance).toString();
+      }
+    }
+  }
+}
+
 async function processSong(file, num) {
   const chordpro = fs.readFileSync(`./song/${file}`, 'utf8');
   const htmlFormatter = new ChordSheet.HtmlDivFormatter();
   const parser = new ChordSheet.ChordProParser();
   const song = parser.parse(chordpro);
+  transposeSong(song, file.split('-')[1]);
   let romanizedSong = parser.parse(chordpro);
+  transposeSong(romanizedSong, file.split('-')[1]);
   romanizedSong.metadata.title = await romanize(song.metadata.title);
   for (const line of romanizedSong.lines) {
     for (const item of line.items) {
