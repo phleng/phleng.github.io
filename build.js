@@ -80,6 +80,9 @@ function compile(source, destination, data) {
 }
 
 async function romanize(text) {
+  if (!/[\u0E00-\u0E7F]/gmu.test(text)) {
+    return text;
+  }
   return new Promise(resolve => {
     pythonRomanize.stdin.setEncoding('utf8');
     pythonRomanize.stdin.cork();
