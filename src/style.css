@@ -20,7 +20,7 @@ body {
 }
 
 .title {
-  @apply pt-8 xl:text-3xl text-2xl mb-4 mt-12 font-bold;
+  @apply pt-12 xl:text-3xl text-2xl mb-4 mt-12 font-bold;
 }
 
 .title a {
@@ -64,7 +64,7 @@ a {
 }
 
 .m-nav {
-  @apply lg:hidden text-base absolute left-0 top-0 bg-white z-10 flex justify-between w-screen;
+  @apply lg:hidden text-base fixed left-0 top-0 bg-white z-10 flex justify-between w-screen;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 

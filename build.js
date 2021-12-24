@@ -27,7 +27,7 @@ async function compileTailwind() {
   return result.css;
 }
 
-async function processSong(file) {
+async function processSong(file, num) {
   const chordpro = fs.readFileSync(`./song/${file}`, 'utf8');
   const htmlFormatter = new ChordSheet.HtmlDivFormatter();
   const parser = new ChordSheet.ChordProParser();
@@ -44,6 +44,8 @@ async function processSong(file) {
     }
   }
   const id = romanizedSong.metadata.title.replace(/ /g, '-');
+  song.metadata.title = `${num}. ${song.metadata.title}`;
+  romanizedSong.metadata.title = `${num}. ${romanizedSong.metadata.title}`;
   $('body').append(`
 <div id="${id}" class="song">
   <div class="th">
@@ -114,8 +116,8 @@ async function main() {
   $mobileNav.append($('<button>').text('EN').addClass('change-lang th').attr('data-target', 'en'));
   $mobileNav.append($('<button>').text('TH').addClass('change-lang en').attr('data-target', 'th'));
   $('body').prepend($mobileNav);
-  for (const song of SONGS) {
-    await processSong(song);
+  for (let i = 0; i < SONGS.length; ++i) {
+    await processSong(SONGS[i], i + 1);
   }
   $('h1').addClass('title');
   const cssContent = fs.readFileSync('./src/style.css', 'utf8') + ChordSheet.HtmlDivFormatter.cssString();

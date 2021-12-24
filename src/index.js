@@ -1,23 +1,3 @@
-// const SimpleBar = require('simplebar');
-
-// let isInit = false;
-// function tryInitScroll() {
-//   console.log(window.innerWidth);
-//   if (window.innerWidth < 1024 && !isInit) {
-//     isInit = true;
-//     console.log('init');
-//     new SimpleBar(document.body, {
-//       // autoHide: false,
-//       // forceVisible: 'y',
-//     });
-//   }
-// }
-
-// document.addEventListener('resize', _ => {
-//   tryInitScroll();
-// });
-// tryInitScroll();
-
 const $navs = document.getElementsByClassName('nav-select');
 for (const $nav of $navs) {
   $nav.addEventListener('change', e => {
@@ -35,7 +15,6 @@ for (const $lang of $langs) {
       show = 'en';
       hide = 'th';
     }
-    console.log(hide, show);
     for (const $el of document.getElementsByClassName(hide)) {
       $el.classList.remove('show');
       $el.classList.add('hide');
@@ -50,12 +29,16 @@ for (const $lang of $langs) {
 const $titles = document.getElementsByClassName('title');
 const $mobileNavigation = document.getElementsByClassName('m-nav')[0];
 
-let scrollY = window.pageYOffset;
 document.addEventListener('scroll', _ => {
+  onScroll();
+});
+
+let scrollY = 2147483647;
+function onScroll() {
   const newScrollY = window.pageYOffset;
   const rect = $mobileNavigation.getBoundingClientRect();
   if (newScrollY > scrollY) {
-    if ($mobileNavigation.style.position === 'fixed') {
+    if ($mobileNavigation.style.position !== 'absolute') {
       $mobileNavigation.style.position = 'absolute';
       $mobileNavigation.style.top = `${newScrollY}px`;
     }
@@ -70,8 +53,8 @@ document.addEventListener('scroll', _ => {
   }
   scrollY = newScrollY;
   updateActive();
-});
-updateActive();
+}
+onScroll();
 
 function updateActive() {
   let activeIndex = 0;
