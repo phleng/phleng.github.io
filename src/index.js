@@ -67,7 +67,7 @@ onScroll();
 const initTimestamp = Date.now();
 
 function updateActive() {
-  let activeIndex = 0;
+  let activeIndex = -1;
   let i = 0;
   for (const $title of $titles) {
     if ($title.offsetParent === null) {
@@ -80,6 +80,10 @@ function updateActive() {
     }
     ++i;
   }
+  if (activeIndex === -1) {
+    activeIndex = i - 1;
+  }
+  console.log(activeIndex);
   for (const $select of $navs) {
     $select.selectedIndex = activeIndex;
   }
